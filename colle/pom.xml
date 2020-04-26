@@ -1,16 +1,7 @@
-# colle
-Contains working sample how to run and deploy scala job
-
-# Init project
-
-You can create a skeleton for your project using
-`mkdir -p <PROJECT NAME>/src/main/scala/com/amazonaws`
-`mkdir -p <PROJECT NAME>/src/test/scala`
-```
   <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.amazonaws</groupId>
-    <artifactId>AWSGlueApp</artifactId>
+    <artifactId>GlueApp</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>${project.artifactId}</name>
     <description>AWS Glue ETL application</description>
@@ -28,8 +19,7 @@ You can create a skeleton for your project using
         <dependency>
             <groupId>com.amazonaws</groupId>
             <artifactId>AWSGlueETL</artifactId>
-			
-            <version>Glue version</version>
+            <version>1.0.0</version>
 			
         </dependency>
     </dependencies>
@@ -55,7 +45,7 @@ You can create a skeleton for your project using
                             <goal>testCompile</goal>
                         </goals>
                     </execution>
-                </executions>
+	        </executions>
             </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -68,8 +58,8 @@ You can create a skeleton for your project using
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                <systemProperties>
+		<configuration>
+		<systemProperties>
                     <systemProperty>
                         <key>spark.master</key>
                         <value>local[*]</value>
@@ -108,7 +98,3 @@ You can create a skeleton for your project using
         </plugins>
     </build>
 </project>
-```
-# build
-
-docker build . -t colle
