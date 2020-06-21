@@ -1,0 +1,22 @@
+version: "3.8"
+services:
+
+  glue-job-test:
+    build: .
+    env_file:
+      aws_example.env
+    depends_on:
+      - localstack
+  localstack:
+    image: localstack/localstack
+    ports:
+      - "4566-4599:4566-4599"
+      - "${PORT_WEB_UI-8080}:${PORT_WEB_UI-8080}"
+    environment:
+      - SERVICES=s3
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    env_file:
+      aws_example.env
+    volumes:
+      - './my_localstack_init:/docker-entrypoint-initaws.d'
