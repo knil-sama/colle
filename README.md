@@ -4,7 +4,7 @@ Contains working sample how to run and deploy scala job
 # Init project
 
 You can create a skeleton for your project using
-`mkdir -p <PROJECT NAME>/src/main/scala/com/amazonaws`
+`mkdir -p <PROJECT NAME>/src/main/scala/colle`
 `mkdir -p <PROJECT NAME>/src/test/scala`
 ```
   <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
@@ -108,7 +108,23 @@ You can create a skeleton for your project using
         </plugins>
     </build>
 </project>
+
 ```
-# build
+# Build
 
 docker build . -t colle
+
+# Run
+
+docker run -t colle
+
+# Utility for test
+
+# Parquet file generator
+
+To make this project more useful instead of keeping handful of file for testing we will generate them using another script  
+This will allow use to insure all type are properly supported and stress charge with load of files
+
+# Fake s3
+
+localstack (see bug is resolved for scala s3 lib)

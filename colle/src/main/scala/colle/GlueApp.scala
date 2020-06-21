@@ -1,4 +1,4 @@
-package com.amazonaws
+package colle
 
 import com.amazonaws.services.glue.log.GlueLogger
 

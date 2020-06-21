@@ -10,6 +10,10 @@ ENV PATH=/home/$COLLE_USER/apache-maven-${MAVEN_VERSION}/bin:$PATH
 RUN apt-get update && apt-get install -y wget  openjdk-8-jdk
 RUN wget --output-document=apache-maven-${MAVEN_VERSION}-bin.tar.gz https://aws-glue-etl-artifacts.s3.amazonaws.com/glue-common/apache-maven-${MAVEN_VERSION}-bin.tar.gz && tar -xvf apache-maven-${MAVEN_VERSION}-bin.tar.gz && rm apache-maven-${MAVEN_VERSION}-bin.tar.gz
 RUN wget --output-document=spark-${SPARK_VERSION}-bin-hadoop2.8.tgz  https://aws-glue-etl-artifacts.s3.amazonaws.com/glue-1.0/spark-${SPARK_VERSION}-bin-hadoop2.8.tgz && tar -xvf spark-${SPARK_VERSION}-bin-hadoop2.8.tgz && rm spark-${SPARK_VERSION}-bin-hadoop2.8.tgz
-COPY colle/ colle/
-RUN cd colle && mvn clean install
-RUN cd colle && mvn exec:java -e  -Dexec.mainClass="com.amazonaws.GlueApp" -Dexec.args="--JOB-NAME test"
+# copy the project files
+COPY colle/pom.xml colle/pom.xml
+WORKDIR colle
+# build all dependencies for offline use
+RUN mvn dependency:go-offline -B
+COPY colle/src ./src
+CMD ["mvn", "-X", "install", "exec:java", "-Dexec.mainClass=colle.GlueApp", "-Dexec.args=\"--JOB-NAME jobName\""]
